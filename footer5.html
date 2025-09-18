@@ -1,0 +1,114 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Footer with Particles</title>
+  <link rel="stylesheet" href="footer5.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body data-theme="dark">
+  <h1>Footer 5</h1>
+  <button id="theme-toggle" aria-label="Toggle theme"><i class="fa-solid fa-moon"></i></button>
+
+  <footer class="wb-home-footer">
+    <canvas class="footer-particles"></canvas>
+
+    <ul class="footer-links">
+        <li><a href="/">Home</a></li>
+        <li> <a href="/Contact">Contact</a></li>
+        <li> <a href="/Terms-of-use">Terms of Use</a></li>
+      
+    </ul>
+
+    <div class="wb-made-by">
+      Made with <i class="fa-solid fa-heart red-heart"></i> by <b>Webler</b>
+    </div>
+  </footer>
+
+<script>
+
+  const canvas = document.querySelector(".footer-particles");
+  const ctx = canvas.getContext("2d");
+  let particles = [];
+  let animationId;
+
+  function resizeCanvas() {
+    canvas.width = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
+  }
+
+  function initParticles() {
+    particles = [];
+    for (let i = 0; i < 40; i++) {
+      particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        r: Math.random() * 3 + 1,
+        dx: (Math.random() - 0.5) * 0.6,
+        dy: (Math.random() - 0.5) * 0.6,
+        color: `hsla(${Math.random() * 360}, 100%, 70%, 0.4)`
+      });
+    }
+  }
+
+  function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    particles.forEach((p) => {
+      p.x += p.dx;
+      p.y += p.dy;
+      if (p.x < 0 || p.x > canvas.width) p.dx *= -1;
+      if (p.y < 0 || p.y > canvas.height) p.dy *= -1;
+
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = p.color;
+      ctx.shadowBlur = 15;
+      ctx.shadowColor = p.color;
+      ctx.fill();
+    });
+
+    animationId = requestAnimationFrame(animate);
+  }
+
+  window.addEventListener("resize", () => {
+    cancelAnimationFrame(animationId);
+    resizeCanvas();
+    initParticles();
+    animate();
+  });
+
+
+  resizeCanvas();
+  initParticles();
+  animate();
+
+
+  const themeBtn = document.getElementById('theme-toggle');
+  const body = document.body;
+
+  function updateIcon(theme) {
+    themeBtn.innerHTML = theme === 'dark'
+      ? '<i class="fa-solid fa-moon" aria-hidden="true"></i>'
+      : '<i class="fa-solid fa-sun" aria-hidden="true"></i>';
+    themeBtn.setAttribute('aria-label', theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
+  }
+
+
+  const savedTheme = localStorage.getItem('theme');
+  const initialTheme = body.getAttribute('data-theme') || savedTheme || 'dark';
+  body.setAttribute('data-theme', initialTheme);
+  updateIcon(initialTheme);
+
+  themeBtn.addEventListener('click', () => {
+    const newTheme = body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    body.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+    updateIcon(newTheme);
+  });
+</script>
+
+</body>
+</html>
