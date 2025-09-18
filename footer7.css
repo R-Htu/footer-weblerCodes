@@ -104,22 +104,24 @@ body[data-theme="dark"] #theme-toggle {
   z-index: 1;
   padding: 0.5vmin 1vmin;
   border-radius: 0.5vmin;
+  display: inline-block;
 }
 
 
 .wb-home-footer a:hover {
   transform: translateY(-3px) scale(1.1);
-  background: linear-gradient(90deg, #84e156, #2d2b5b, #022b35);
+  background: linear-gradient(90deg, #070d00, #7096a0, #2d3030);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-
   text-shadow: 3px 3px 6px rgba(0,0,0,0.5), 1px 1px 2px rgba(0,0,0,0.3);
 }
 
 
 .wb-made-by {
-  color: rgb(47, 46, 46);
   font-weight: bolder;
+  background: linear-gradient(90deg,  #070d00, #152225, #2d3030);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .wb-made-by b {
@@ -140,12 +142,11 @@ body[data-theme="dark"] #theme-toggle {
 
 .red-heart {
   margin: 0 0.2rem;
-  color: red;
   vertical-align: middle;
-  text-shadow: 0 0 5px #31f705;
-
+  text-shadow: 0 0 1px #be2708;
   animation: heartbeat 1.3s infinite;
   transition: transform 0.3s ease;
+
 }
 
 /* =========================================================
